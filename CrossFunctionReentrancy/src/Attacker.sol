@@ -11,7 +11,7 @@ contract Attacker {
         vulnerable = _vulnerable;
     }
 
-    function setRobinHood9(Attacker _RobinHood) external {
+    function setRobinHood(Attacker _RobinHood) external {
         RobinHood = _RobinHood;
     }
 
