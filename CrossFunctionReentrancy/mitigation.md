@@ -41,8 +41,7 @@ To mitigate this risk, the `withdraw()` function should follow the `CEI` pattern
         require(success, "Transfer failed");
     }
 
-    function transferToInternally(address _recipient, uint256 _amount) external {
-        // nonReentrant here will mitigate the exploit
+    function transferToInternally(address _recipient, uint256 _amount) external nonReentrant {
         require(balance[msg.sender] >= _amount, "Not enough funds to transfer!");
         balance[msg.sender] -= _amount;
         balance[_recipient] += _amount;
