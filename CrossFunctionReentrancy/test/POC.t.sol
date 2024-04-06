@@ -39,5 +39,8 @@ contract POC is Test {
 
         assertEq(address(victim).balance, 0);
         assertGt(address(thief_A).balance + address(thief_B).balance, 2 ether);
+        assertEq((address(thief_A).balance + address(thief_B).balance), 13 ether);
+
+        console2.log(address(thief_A).balance + address(thief_B).balance);
     }
 }
